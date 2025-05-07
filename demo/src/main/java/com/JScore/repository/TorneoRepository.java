@@ -1,6 +1,6 @@
-package com.JScore.demo.repository;
+package com.JScore.repository;
 
-import com.JScore.demo.model.torneo.Torneo;
+import com.JScore.model.torneo.Torneo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

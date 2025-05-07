@@ -1,4 +1,4 @@
-package com.JScore.demo.model.example;
+package com.JScore.model.example;
 
 
 import java.util.logging.ConsoleHandler;
