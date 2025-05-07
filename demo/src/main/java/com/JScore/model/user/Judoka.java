@@ -1,4 +1,4 @@
-package com.JScore.demo.model.user;
+package com.JScore.model.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Perfil del Club</title>
+    <style>
+        :root {
+            --color-primario: #000000;     /* Fondo del encabezado */
+            --color-secundario: #ffffff;   /* Texto general claro */
+            --color-destacado: #ff0000;    /* Rojo JSCORE, botones, etc. */
+            --color-claro: #dddddd;        /* Fondos de tarjetas */
+            --color-gris: #5e5858;         /* Fondo de horarios */
+            --color-activo: #cccccc;       /* Botón activo del navbar */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .header {
+            background: var(--color-primario);
+            color: var(--color-secundario);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            background: var(--color-claro);
+            margin-right: 20px;
+        }
+
+        .header-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-info .nombre {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sensei-section, .integrantes, .horarios {
+            padding: 20px;
+        }
+
+        .sensei {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .sensei img {
+            width: 100px;
+            height: 100px;
+            background: var(--color-claro);
+            margin-right: 15px;
+        }
+
+        .integrantes-box, .horarios-box {
+            background: var(--color-claro);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .horarios {
+            background: var(--color-gris);
+            color: var(--color-secundario);
+        }
+
+        .horarios-header {
+            background: var(--color-claro);
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .horarios-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 10px;
+        }
+
+        .nav {
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .nav .active {
+            background: var(--color-activo);
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        .nav .login {
+            background: var(--color-destacado);
+            color: var(--color-secundario);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <div><strong>JSCORE</strong></div>
+    <div>
+        <a href="#">Inicio</a>
+        <a class="active" href="#">Clubs</a>
+        <a href="#">Rankings</a>
+    </div>
+    <a class="login" th:href="@{/logout}">Cerrar sesión</a>
+</div>
+
+<div class="header">
+    <img src="#" alt="Logo Club">
+    <div class="header-info">
+        <span class="nombre">NOMBRE DEL CLUB</span>
+        <span>Dirección</span>
+        <span>Año de fundación</span>
+    </div>
+</div>
+
+<div class="sensei-section">
+    <div class="sensei">
+        <img src="#" alt="Sensei">
+        <div>
+            <strong style="color: red;">SENSEI</strong><br>
+            <span>Breve presentación de el/la sensei ...</span>
+        </div>
+    </div>
+</div>
+
+<div class="integrantes">
+    <div class="integrantes-box">
+        <strong>INTEGRANTES</strong>
+        <ul>
+            <li>Nombre 1</li>
+            <li>Nombre 2</li>
+            <li>Nombre 3</li>
+        </ul>
+    </div>
+</div>
+
+<div class="horarios">
+    <div class="horarios-header">HORARIOS</div>
+    <div class="horarios-box">
+        <div><strong>DÍA</strong><br>Lunes</div>
+        <div><strong>HORA</strong><br>18:00</div>
+        <div><strong>RANGO EDAD</strong><br>6 - 12 años</div>
+    </div>
+</div>
+
+</body>
+</html>
