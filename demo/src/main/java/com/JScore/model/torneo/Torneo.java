@@ -1,7 +1,7 @@
-package com.JScore.demo.model.torneo;
+package com.JScore.model.torneo;
 
-import com.JScore.demo.model.example.LoggerManager;
-import com.JScore.demo.model.user.Judoka;
+import com.JScore.model.example.LoggerManager;
+import com.JScore.model.user.Judoka;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

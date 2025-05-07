@@ -1,8 +1,8 @@
-package com.JScore.demo.model.gestor;
+package com.JScore.model.gestor;
 
-import com.JScore.demo.model.example.LoggerManager;
-import com.JScore.demo.model.torneo.Torneo;
-import com.JScore.demo.model.user.Judoka;
+import com.JScore.model.example.LoggerManager;
+import com.JScore.model.torneo.Torneo;
+import com.JScore.model.user.Judoka;
 
 import java.util.*;
 import java.util.logging.Level;

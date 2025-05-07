@@ -1,7 +1,7 @@
-package com.JScore.demo.model.gestor;
+package com.JScore.model.gestor;
 
-import com.JScore.demo.model.example.LoggerManager;
-import com.JScore.demo.model.user.Judoka;
+import com.JScore.model.example.LoggerManager;
+import com.JScore.model.user.Judoka;
 
 import java.io.*;
 import java.util.ArrayList;
