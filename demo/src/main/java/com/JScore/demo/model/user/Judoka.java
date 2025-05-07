@@ -1,4 +1,4 @@
-package org.example.model.judoka;
+package com.JScore.demo.model.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
