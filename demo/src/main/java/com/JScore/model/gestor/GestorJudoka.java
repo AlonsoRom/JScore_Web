@@ -1,5 +1,6 @@
 package com.JScore.model.gestor;
 
+
 import com.JScore.model.example.LoggerManager;
 import com.JScore.model.user.Judoka;
 

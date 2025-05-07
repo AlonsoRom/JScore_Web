@@ -1,5 +1,7 @@
 package com.JScore.model.ranking;
 
+
+
 import com.JScore.model.example.LoggerManager;
 import com.JScore.model.gestor.GestorJudoka;
 import com.JScore.model.user.Judoka;
