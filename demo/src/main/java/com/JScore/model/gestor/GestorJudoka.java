@@ -1,5 +1,160 @@
 package com.JScore.model.gestor;
 
+
+import com.JScore.model.example.LoggerManager;
+import com.JScore.model.user.Judoka;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class GestorJudoka {
 
+    private List<Judoka> listaJudokas;
+
+    public GestorJudoka() {
+        listaJudokas = new ArrayList<>();
+    }
+
+    private static final Logger logger = LoggerManager.getLogger(GestorJudoka.class);
+
+    public void agregarJudokaDesdeConsola(Scanner scanner) {
+        try {
+            logger.log(Level.INFO, "Nombre: ");
+            String nombre = scanner.nextLine();
+            logger.log(Level.INFO, "Apellido: ");
+            String apellido = scanner.nextLine();
+            logger.log(Level.INFO, "Categoría: ");
+            String categoria = scanner.nextLine();
+            logger.log(Level.INFO, "Fecha de Nacimiento (DD-MM-YYYY): ");
+            String fechaNacimiento = scanner.nextLine();
+
+            Judoka judoka = new Judoka(nombre, apellido, categoria, fechaNacimiento);
+            if (existeJudoka(nombre)) {
+                throw new IllegalArgumentException("El judoka " + nombre + " ya está registrado");
+            }
+
+            listaJudokas.add(judoka);
+            guardarJudokasCSV("judokas.csv");
+            logger.log(Level.INFO, "Judoka agregado con éxito");
+
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, e.getMessage());
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, String.format("Error inesperado al agregar judoka: %s", e.getMessage()), e);
+        }
+    }
+
+    public void cargarJudokassDesdeCSV(String rutaArchivo) throws IOException {
+        File archivo = new File(rutaArchivo);
+        if (!archivo.exists()) {
+            logger.log(Level.INFO, String.format("Archivo %s no encontrado", rutaArchivo));
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+
+                if (datos.length == 7) {
+                    String nombre = datos[0];
+                    String apellido = datos[1];
+                    String categoria = datos[2];
+                    int victorias = Integer.parseInt(datos[3]);
+                    int derrotas = Integer.parseInt(datos[4]);
+                    int empates = Integer.parseInt(datos[5]);
+                    String fechaNacimiento = datos[6];
+
+                    Judoka judoka = new Judoka(nombre, apellido, categoria, fechaNacimiento);
+                    judoka.setVictorias(victorias);
+                    judoka.setDerrotas(derrotas);
+                    judoka.setEmpates(empates);
+
+                    if (!existeJudoka(nombre)) {
+                        listaJudokas.add(judoka);
+                    }
+                }
+            }
+            logger.log(Level.INFO, "Judokas cargados correctamente desde {0}", rutaArchivo);
+        } catch (NumberFormatException e) {
+            throw new IOException("Error en el formato " + rutaArchivo, e);
+        }
+    }
+
+    public void registrarResultadoJudoka(Scanner scanner) {
+        try {
+            logger.log(Level.INFO, "Nombre del Judoka: ");
+            String nombre = scanner.nextLine();
+            logger.log(Level.INFO, "Resultado (victoria / derrota / empate): ");
+            String resultado = scanner.nextLine();
+
+            Judoka judoka = obtenerJudoka(nombre);
+
+            switch (resultado.toLowerCase()) {
+                case "victoria":
+                    judoka.aumentarVictoria();
+                    break;
+                case "derrota":
+                    judoka.aumentarDerrota();
+                    break;
+                case "empate":
+                    judoka.aumentarEmpate();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Resultado no válido: " + resultado);
+            }
+            guardarJudokasCSV("judokas.csv");
+            logger.log(Level.INFO, "Resultado actualizado");
+
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, e.getMessage());
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, String.format("Error inesperado al registrar resultado: %s", e.getMessage()), e);
+        }
+    }
+
+    public List<Judoka> getListaJudokas() {
+        return new ArrayList<>(listaJudokas);
+    }
+
+    public Judoka obtenerJudoka(String nombre) throws IllegalArgumentException {
+        for (Judoka judoka : listaJudokas) {
+            if (judoka.getNombre().equalsIgnoreCase(nombre)) {
+                return judoka;
+            }
+        }
+        throw new IllegalArgumentException("Judoka " + nombre + " no encontrado");
+    }
+
+    private boolean existeJudoka(String nombre) {
+        for (Judoka judoka : listaJudokas) {
+            if (judoka.getNombre().equalsIgnoreCase(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void mostrarJudokas() {
+        if (listaJudokas.isEmpty()) {
+            logger.log(Level.INFO, "No hay judokas registrados");
+        } else {
+            listaJudokas.forEach(judoka -> logger.log(Level.INFO, judoka.mostrarInformacion()));
+        }
+    }
+
+    public void guardarJudokasCSV(String rutaArchivo) throws IOException {
+        try (FileWriter fw = new FileWriter(rutaArchivo)) {
+            for (Judoka judoka : listaJudokas) {
+                fw.write(judoka.getNombre() + "," + judoka.getApellido() + "," + judoka.getCategoria() + "," +
+                        judoka.getVictorias() + "," + judoka.getDerrotas() + "," + judoka.getEmpates() + "," +
+                        judoka.getFechaNacimiento() + "\n");
+            }
+            logger.log(Level.INFO, "Datos de judokas guardados en {0}", rutaArchivo);
+        }
+    }
 }

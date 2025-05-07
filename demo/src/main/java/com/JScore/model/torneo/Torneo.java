@@ -1,5 +1,6 @@
 package com.JScore.model.torneo;
 
+
 import com.JScore.model.example.LoggerManager;
 import com.JScore.model.user.Judoka;
 import com.fasterxml.jackson.annotation.JsonBackReference;
